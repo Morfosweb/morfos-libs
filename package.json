@@ -1,0 +1,38 @@
+{
+  "name": "start-morfos",
+  "version": "1.0.0",
+  "description": "",
+  "keywords": [],
+  "main": "src/index.tsx",
+  "dependencies": {
+    "@morfos/hello-morfos": "0.0.4",
+    "@types/react-native": "0.64.4",
+    "@types/react-redux": "7.1.16",
+    "react": "17.0.2",
+    "react-dom": "17.0.2",
+    "react-native": "0.64.0",
+    "react-native-web": "0.16.1",
+    "react-redux": "7.2.4",
+    "react-scripts": "4.0.3",
+    "redux": "4.1.0",
+    "typescript": "4.2.4"
+  },
+  "devDependencies": {
+    "@types/react": "17.0.0",
+    "@types/react-dom": "17.0.0",
+    "typescript": "4.1.3"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "toPublic": "copy project/toPublic to public root folder before build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
+}
