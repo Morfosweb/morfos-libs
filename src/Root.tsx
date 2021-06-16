@@ -7,6 +7,6 @@ import { Router } from '../lib/screens';
 // ---------- set Default Component
 export default () => (
   <Connect>
-    <Router folder={'/src/screens'} home={'myPf'} />
+    <Router folder={'/src/screens'} setHome={'A1'} />
   </Connect>
 );

@@ -1,26 +1,31 @@
 // ---------- import Packs
 // import { InitData } from '@morfos/renders';
-import { InitData } from '../../../lib/renders';
+import { InitData, InitFunction } from '../../../lib/renders';
 
 // import { setScreen } from '@morfos/screens';
-import { setScreen } from '../../../lib/screens';
+import { goTo, setScreen } from '../../../lib/screens';
 
 // ---------- import Internals
 import { prodsList } from './helpers';
 
 // ----------- set Function Component
 const Screen = () => {
+  const toA2 = () => goTo('A2');
+  const toMyPF = () => goTo('myPF');
+
   return (
-    <InitData setData={{ prj: { A1: { welcome: 'welcome' } } }}>
-      <InitData
-        setData={ctData => ({
-          ...ctData.prj,
-          prj: { A1: { ...ctData.A1, test: 'test' } },
-        })}
-      >
-        <div>Hello A1</div>
+    <InitFunction setFunction={prodsList}>
+      <InitData setData={{ A1: { test: 'test' } }}>
+        <div>
+          <h1>Hello A1</h1>
+
+          <br />
+          <button onClick={toA2}>Ir para A2</button>
+          <br />
+          <button onClick={toMyPF}>Ir para myPF</button>
+        </div>
       </InitData>
-    </InitData>
+    </InitFunction>
   );
 };
 

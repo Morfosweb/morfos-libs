@@ -8,7 +8,7 @@ import { CondChildren, InitData, InitFunction } from '../renders';
 import dynMods from './dynMods';
 
 // ----------- set Types
-type RouterT = { home: string; folder: string };
+type RouterT = { setHome: string; folder: string };
 type ChangeFolderT = (folder: string) => any;
 
 // ----------- import Internals
@@ -16,7 +16,7 @@ const setPath: ChangeFolderT = folder => ({
   dev: { screens: { selected: folder } },
 });
 
-export default ({ home, folder }: RouterT) => {
+export default ({ setHome, folder }: RouterT) => {
   const selected = useData(`dev.screens.selected`);
   const CurrScreen = useData(`dev.screens.scInfo.${selected}.component`);
   const Router = () => (CurrScreen ? <CurrScreen /> : <></>);
@@ -25,7 +25,7 @@ export default ({ home, folder }: RouterT) => {
   return (
     <InitFunction setFunction={readFolders}>
       <CondChildren dataPath="dev.screens.readAll">
-        <InitData setData={setPath(home)}>
+        <InitData setData={setPath(setHome)}>
           <Router />
         </InitData>
       </CondChildren>
