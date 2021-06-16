@@ -1,34 +1,34 @@
 // ----------- import Packs
-import { useData, ObjPropsT } from '../central-data';
-// import { useData, ObjPropsT } from '@morfos/central-data';
-import { InitData, InitFunction } from '../renders';
+import { useData } from '../central-data';
+// import { useData } from '@morfos/central-data';
+import { CondChildren, InitData, InitFunction } from '../renders';
 // import { InitData } from '@morfos/renders';
+
 // ----------- import Internals
 import dynMods from './dynMods';
 
 // ----------- set Types
-type RouterT = { home: string; path: string };
-type ChangePathT = (path: string) => (ctData: ObjPropsT) => any;
+type RouterT = { home: string; folder: string };
+type ChangeFolderT = (folder: string) => any;
 
 // ----------- import Internals
-const setPath: ChangePathT = path => ctData => ({
-  screens: {
-    ...ctData.screens,
-
-    selected: path,
-  },
+const setPath: ChangeFolderT = folder => ({
+  dev: { screens: { selected: folder } },
 });
 
-export default ({ home, path }: RouterT) => {
-  const selected = useData(`screens.selected`);
-  const CurrScreen = useData(`screens.scInfo.${selected}.component`);
+export default ({ home, folder }: RouterT) => {
+  const selected = useData(`dev.screens.selected`);
+  const CurrScreen = useData(`dev.screens.scInfo.${selected}.component`);
   const Router = () => (CurrScreen ? <CurrScreen /> : <></>);
+  const readFolders = () => dynMods(folder);
 
   return (
-    <InitFunction setFunction={() => dynMods(path)}>
-      <InitData setData={setPath(home)}>
-        <Router />
-      </InitData>
+    <InitFunction setFunction={readFolders}>
+      <CondChildren dataPath="dev.screens.readAll">
+        <InitData setData={setPath(home)}>
+          <Router />
+        </InitData>
+      </CondChildren>
     </InitFunction>
   );
 };

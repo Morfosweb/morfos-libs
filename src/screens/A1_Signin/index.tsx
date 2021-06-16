@@ -27,14 +27,7 @@ const Screen = () => {
 // ----------- set Info Screen
 setScreen({
   key: 'A1',
-  path: 'signinA1',
-
   component: Screen,
-  groupSc: 'pub',
-  condBigSc: true,
 
-  scCode: 'A1',
+  // path: 'signinA1',
 });
-
-// ----------- set Export Default
-// export default Screen;
