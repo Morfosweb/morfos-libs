@@ -4,7 +4,6 @@ import { LoggerT } from './types';
 // ---------- set Default Function
 const Logger: LoggerT = (action, newData, devLog) => {
   // ---------- set Properties
-  // const { currData, value } = action;
   const { value } = action;
 
   // ---------- set Logs

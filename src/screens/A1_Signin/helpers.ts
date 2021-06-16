@@ -11,10 +11,11 @@ export const prodsList = async () => {
 
   const setMergeData = 'forin...';
 
-  setData({ A1: { listProds: 'wait...' } });
+  await setData({ A1: { listProds: 'wait...' } });
 
+  console.log('ESPERA...');
   await delay(5000);
-  console.log('PRONTO!');
+  console.log('...PRONTO!');
 
   const result = [getProdBase, getProdShop, setMergeData];
 

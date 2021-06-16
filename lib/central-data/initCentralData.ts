@@ -8,7 +8,7 @@ import { ActionT, ObjPropsT } from './types';
 // ----------- set Default Function
 const changes = (ctData: ObjPropsT = {}, act: ActionT) => {
   // ----------- set New Data
-  const newData = { ...ctData, ...act.value };
+  const newData = { ...ctData, ...act.newData };
 
   // ----------- set Logger Info if not 'production'
   if (process.env.NODE_ENV === 'development') {

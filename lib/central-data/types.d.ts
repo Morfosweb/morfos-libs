@@ -2,14 +2,14 @@
 import React from 'react';
 
 // ---------- set Types
-type ObjPropsT = { [key: string]: any };
-type ActionT = { type: string; [key: string]: any };
+export type ObjPropsT = { [key: string]: any };
+export type ActionT = { type: string; [key: string]: any };
 
-type SetDataT = (data: ObjPropsT) => ObjPropsT;
-type SetDataParamT = SetDataT | ObjPropsT;
+export type SetDataT = (data: ObjPropsT) => ObjPropsT;
+export type Obj_or_Function = SetDataT | ObjPropsT;
 
 // ---------- Never Type Function
-type NoFunctionT<T> = T extends string
+export type NoFunctionT<T> = T extends string
   ? 'string'
   : T extends number
   ? 'number'
@@ -19,29 +19,22 @@ type NoFunctionT<T> = T extends string
   ? 'undefined'
   : 'object';
 
-type DataT = { [key: string]: NoFunctionT<any> };
+export type DataT = { [key: string]: NoFunctionT<any> };
 
-type PropsT = {
+export type PropsT = {
   children: React.ReactNode;
   data?: DataT;
   [key: string]: any;
 };
 
-type LoggerT = (action: ActionT, newData: ObjPropsT, devLog: number) => void;
+export type LoggerT = (
+  action: ActionT,
+  newData: ObjPropsT,
+  devLog: number,
+) => void;
 
-type UseDataT = (path: string, notation?: string) => NoFunctionT<any> | false;
-type DataSelectionT = (ctData: ObjPropsT) => NoFunctionT<any>;
-
-// ---------- export Types
-export {
-  ObjPropsT,
-  ActionT,
-  SetDataT,
-  SetDataParamT,
-  NoFunctionT,
-  DataT,
-  PropsT,
-  LoggerT,
-  UseDataT,
-  DataSelectionT,
-};
+export type UseDataT = (
+  path: string,
+  notation?: string,
+) => NoFunctionT<any> | false;
+export type DataSelectionT = (ctData: ObjPropsT) => NoFunctionT<any>;
