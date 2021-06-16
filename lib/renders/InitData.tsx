@@ -3,10 +3,11 @@
 import { setData as setCtData } from '../central-data';
 
 // ---------- import Internals
-import { PropsDataT } from './types';
+import { PropsSetDataT } from './types';
 import InitFunction from './InitFunction';
 
-export default ({ children, setData }: PropsDataT) => {
+// ---------- default Function
+export default ({ children, setData }: PropsSetDataT) => {
   const dataFunction = () => setCtData(setData);
   return <InitFunction setFunction={dataFunction}>{children}</InitFunction>;
 };

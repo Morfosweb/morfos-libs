@@ -13,7 +13,7 @@ const changes = (ctData: ObjPropsT = {}, act: ActionT) => {
   // ----------- set Logger Info if not 'production'
   if (process.env.NODE_ENV === 'development') {
     const newDevLog = newData.dev ? newData.dev.devLog + 1 : 1;
-    newData.dev = { devLog: newDevLog };
+    newData.dev = { ...newData.dev, devLog: newDevLog };
     logger(act, newData, newDevLog);
   }
 
