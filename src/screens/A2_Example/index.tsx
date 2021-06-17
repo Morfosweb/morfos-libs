@@ -25,7 +25,7 @@ const Screen = () => {
 setScreen({
   key: 'A2',
   component: Screen,
-  // path: 'exampleA2',
+  path: 'exampleA2',
 });
 
 // ----------- set Export Default

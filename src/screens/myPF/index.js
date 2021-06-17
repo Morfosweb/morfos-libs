@@ -30,5 +30,5 @@ setScreen({
   key: 'myPF',
   component: Screen,
 
-  // path: 'exampleA2',
+  path: 'my-profile',
 });
