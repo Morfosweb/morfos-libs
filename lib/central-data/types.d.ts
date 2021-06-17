@@ -10,14 +10,14 @@ export type Obj_or_Function = SetDataT | ObjPropsT;
 
 // ---------- Never Type Function
 export type NoFunctionT<T> = T extends string
-  ? 'string'
+  ? string
   : T extends number
-  ? 'number'
+  ? number
   : T extends boolean
-  ? 'boolean'
+  ? boolean
   : T extends undefined
-  ? 'undefined'
-  : 'object';
+  ? undefined
+  : ObjPropsT;
 
 export type DataT = { [key: string]: NoFunctionT<any> };
 

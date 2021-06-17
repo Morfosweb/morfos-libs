@@ -11,13 +11,25 @@ export const prodsList = async () => {
 
   const setMergeData = 'forin...';
 
-  await setData({ A1: { listProds: 'wait...' } });
+  await setData({
+    A1: { B: { listProds: ['wait...'], C: { p1: 'Hi', p2: 'bye' } } },
+
+    A2: 'aaa',
+  });
 
   console.log('ESPERA...');
-  await delay(5000);
+  await delay(2000);
   console.log('...PRONTO!');
 
   const result = [getProdBase, getProdShop, setMergeData];
 
-  setData({ A1: { listProds: result } });
+  return setData(null, ({ clearObj, clearArr }) => ({
+    A1: {
+      B: {
+        listProds: [...clearArr, ...result],
+        C: { ...clearObj, p2: 'goodBye' },
+      },
+      ...clearObj,
+    },
+  }));
 };

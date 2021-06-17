@@ -2,23 +2,52 @@
 import { ObjPropsT } from '../renders/types';
 
 // ---------- default Function
-export const mergeData = (...objects: ObjPropsT[]) => {
-  const isObject = (obj: any) => obj && typeof obj === 'object';
+export const mergeData = (ctData: ObjPropsT, newData: ObjPropsT) => {
+  const isObject = (obj: ObjPropsT) => obj && typeof obj === 'object';
 
-  return objects.reduce((prev, obj) => {
-    Object.keys(obj).forEach(key => {
-      const pVal = prev[key];
-      const oVal = obj[key];
+  return [ctData, newData].reduce((p, c) => {
+    Object.keys(c).forEach(key => {
+      const pVal = p[key];
+      const cVal = c[key];
 
-      if (Array.isArray(pVal) && Array.isArray(oVal)) {
-        prev[key] = pVal.concat(...oVal);
-      } else if (isObject(pVal) && isObject(oVal)) {
-        prev[key] = mergeData(pVal, oVal);
+      const condArr = Array.isArray(pVal) && Array.isArray(cVal);
+      const condObj = isObject(pVal) && isObject(cVal);
+
+      if (condArr) {
+        const clearName = 'clearOtherProps';
+        const condClearArr = [...cVal].some(i => i === clearName);
+
+        if (condClearArr) {
+          const arrRemove = (arr: [], value: any) =>
+            arr.filter(i => i !== value);
+
+          const newC = arrRemove(cVal, clearName);
+
+          p[key] = newC;
+        } else {
+          p[key] = pVal.concat(...cVal);
+        }
+      } else if (condObj) {
+        p[key] = mergeData(pVal, cVal);
       } else {
-        prev[key] = oVal;
+        p[key] = cVal;
       }
     });
 
-    return prev;
+    const condClearObj = c?.['clearOtherProps'] === true;
+
+    if (condClearObj) {
+      delete c.clearOtherProps;
+
+      const newP: ObjPropsT = {};
+
+      Object.keys(c).forEach(key => {
+        newP[key] = p[key];
+      });
+
+      return newP;
+    }
+
+    return p;
   }, {});
 };

@@ -1,26 +1,39 @@
 // ---------- import Internals
 import { initCentralData } from './initCentralData';
-import { Obj_or_Function } from './types';
+import { ObjPropsT, DataT } from './types';
 import { mergeData } from './mergeData';
 
 // ---------- default Function
-export default async (data: Obj_or_Function) => {
+export default async (
+  dataObj: DataT | null,
+  dataFn?: ({
+    ctData,
+    clearObj,
+    clearArr,
+  }: {
+    ctData: ObjPropsT;
+    clearObj: ObjPropsT;
+    clearArr: string[];
+  }) => ObjPropsT,
+) => {
   // ----------- set Props
   const ctData = initCentralData?.getState();
-  // const clean = { cleanOtherProps: true };
-  // ----------- set Condition
-  // const condFn =
-  // typeof data === 'function' ? data({ ctData, clean }) : data;
+  const clearObj = { clearOtherProps: true };
+  const clearArr = ['clearOtherProps'];
 
-  const newData = mergeData(ctData, data);
+  // ----------- set Condition
+  const condFn = dataFn ? dataFn({ ctData, clearObj, clearArr }) : dataObj;
+  // typeof data === 'function' ? data({ ctData, clearObj, clearArr }) : data;
+
+  const newData = condFn && mergeData(ctData, condFn);
 
   // ----------- set Return
   initCentralData?.dispatch({
     type: 'CHANGE',
-    value: data,
+    value: condFn,
     newData: newData,
     currData: ctData,
   });
 
-  // return data;
+  return condFn;
 };
