@@ -34,5 +34,5 @@ setScreen({
   key: 'A1',
   component: Screen,
 
-  // path: 'signinA1',
+  path: 'signinA1',
 });

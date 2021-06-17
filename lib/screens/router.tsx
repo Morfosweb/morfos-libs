@@ -1,4 +1,8 @@
 // ----------- import Packs
+import { Platform, SafeAreaView } from 'react-native';
+// import { StatusBar } from 'expo-status-bar';
+
+// ----------- import Packs
 import { useData } from '../central-data';
 // import { useData } from '@morfos/central-data';
 import { CondChildren, InitData, InitFunction } from '../renders';
@@ -6,6 +10,7 @@ import { CondChildren, InitData, InitFunction } from '../renders';
 
 // ----------- import Internals
 import dynMods from './dynMods';
+import WebRoute from './WebRoute';
 
 // ----------- set Types
 type RouterT = { setHome: string; folder: string };
@@ -16,12 +21,21 @@ const setPath: ChangeFolderT = folder => ({
   dev: { screens: { selected: folder } },
 });
 
+// ----------- default Component
 export default ({ setHome, folder }: RouterT) => {
+  // ----------- set Data
   const selected = useData(`dev.screens.selected`);
   const CurrScreen = useData(`dev.screens.scInfo.${selected}.component`);
-  const Router = () => (CurrScreen ? <CurrScreen /> : <></>);
+
+  // ----------- set PlatForm
+  const condWeb = Platform.OS === 'web';
+  const Component = condWeb ? WebRoute(CurrScreen) : CurrScreen;
+
+  // ----------- set Component
+  const Router = () => (CurrScreen ? <Component /> : <></>);
   const readFolders = () => dynMods(folder);
 
+  // ----------- set Return
   return (
     <InitFunction setFunction={readFolders}>
       <CondChildren dataPath="dev.screens.readAll">

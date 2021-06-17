@@ -23,7 +23,6 @@ export default async (
 
   // ----------- set Condition
   const condFn = dataFn ? dataFn({ ctData, clearObj, clearArr }) : dataObj;
-  // typeof data === 'function' ? data({ ctData, clearObj, clearArr }) : data;
 
   const newData = condFn && mergeData(ctData, condFn);
 
