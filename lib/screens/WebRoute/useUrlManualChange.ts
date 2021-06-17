@@ -1,13 +1,21 @@
 // ----------- import Packs
 import { useEffect } from 'react';
 
+// ----------- import Packs
+import { useData } from '../../central-data';
+// import { useData } from '@morfos/central-data';
+
 // ---------- import Internals
-import { useRouter, useData } from '../useMorfos';
+import goTo from '../goTo';
+// import { useRouter, useData } from '../useMorfos';
 
 // ----------- set Default
 export default () => {
   // ----------- set Data
-  const selectedRoute = useData('baseRoute.path');
+  const selectedScreen = useData('dev.screens.selected');
+  const selectedRoute = useData(
+    'dev.screens.scInfo.' + selectedScreen + '.path',
+  );
 
   // ----------- set Conds
   const condPathName = window.location.pathname.split('/')[1];
@@ -16,10 +24,11 @@ export default () => {
 
   // ----------- set Effects
   const fxInitRoute = () => {
-    condManual && callRouter(condPathName);
+    if (condManual) {
+      goTo(condPathName);
+    }
   };
 
   // ----------- set Hooks
-  const { callRouter } = useRouter();
   useEffect(fxInitRoute, []);
 };

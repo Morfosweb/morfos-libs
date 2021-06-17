@@ -1,18 +1,26 @@
 // @ts-check
 // ----------- import Packs
 import { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+// import { useDispatch } from 'react-redux';
+
+// ----------- import Packs
+import { useData, setData } from '../../central-data';
+// import { useData } from '@morfos/central-data';
 
 // ----------- import Internals
-import { useData } from '../useMorfos';
+// import { useData } from '../useMorfos';
 
 type Ref = any;
 
 export default () => {
   // ----------- set Data
-  const dispatch = useDispatch();
-  const currRoute = useData('baseRoute.path');
-  const condNoPush = useData('baseRoute.condNoPush');
+  // const dispatch = useDispatch();
+
+  const selectedScreen = useData('dev.screens.selected');
+  // const currRoute = useData('baseRoute.path');
+  const currRoute = useData('dev.screens.scInfo.' + selectedScreen + '.path');
+
+  const condNoPush = useData('dev.screens.condNoPush');
 
   // ----------- set Ref History
   const ref: Ref = {
@@ -24,7 +32,8 @@ export default () => {
       if (condPush) {
         ref.push(`/${currRoute}`);
       } else {
-        dispatch({ type: 'base_condPushTrue' });
+        // dispatch({ type: 'base_condPushTrue' });
+        setData({ dev: { screns: { condNoPush: false } } });
       }
     },
 
@@ -51,7 +60,10 @@ export default () => {
 
     fxHistory: () => {
       const callRouter = () => {
-        dispatch({ type: 'base_History', value: ref.cleanPath() });
+        // dispatch({ type: 'base_History', value: ref.cleanPath() });
+        setData({ dev: { screns: { condNoPush: true } } });
+        ref.cleanPath();
+
         ref.handleChange();
       };
       window.addEventListener('popstate', callRouter);

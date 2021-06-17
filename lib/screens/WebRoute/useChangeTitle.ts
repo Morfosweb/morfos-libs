@@ -1,5 +1,6 @@
-// ---------- import Internals
-import { useData } from '../useMorfos';
+// ----------- import Packs
+import { useData } from '../../central-data';
+// import { useData } from '@morfos/central-data';
 
 // ----------- set Default
 export default () => {
